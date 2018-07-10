@@ -435,9 +435,7 @@ public:
     void setOverhangMask(const Polygons& polys)
     {
         overhang_mask = polys;
-        if (!polys.empty()) {
-            setOverhangLayer(true);
-        } else { setOverhangLayer(false); }
+        setOverhangLayer(!polys.empty());
     }
 
     void setOverhangLayer(bool has_overhang = false) {

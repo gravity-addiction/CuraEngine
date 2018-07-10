@@ -720,6 +720,7 @@ void LayerPlan::addWall(ConstPolygonRef wall, int start_idx, const SliceMeshStor
     float non_bridge_line_volume = max_non_bridge_line_volume; // assume extruder is fully pressurised before first non-bridge line is output
     double speed_factor = 1.0; // start first line at normal speed
     double distance_to_bridge_start = 0; // will be updated before each line is processed
+    double overhang_speed_factor = mesh.getSettingAsRatio("wall_overhang_speed_factor");
 
     const double min_bridge_line_len = mesh.getSettingInMicrons("bridge_wall_min_length");
     const double wall_min_flow = mesh.getSettingAsRatio("wall_min_flow");
@@ -727,7 +728,6 @@ void LayerPlan::addWall(ConstPolygonRef wall, int start_idx, const SliceMeshStor
     const int64_t small_feature_max_length = mesh.getSettingInMicrons("small_feature_max_length");
     const bool is_small_feature = (small_feature_max_length > 0) && wall.shorterThan(small_feature_max_length);
     const double small_feature_speed_factor = mesh.getSettingAsRatio((layer_nr == 0) ? "small_feature_speed_factor_0" : "small_feature_speed_factor");
-    double overhang_speed_factor = mesh.getSettingAsRatio("wall_overhang_speed_factor");
 
     // helper function to calculate the distance from the start of the current wall line to the first bridge segment
 
